@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config_Source" doc:name="HTTP Listener config" doc:id="70d0e82e-594c-4778-8982-74a8ff7007b0" >
+		<http:listener-connection host="0.0.0.0" port="8082" />
+	</http:listener-config>
+	<flow name="sujeeth-session4ParentFlow" doc:id="4aa8bb6c-ca54-4930-a912-104bb76273fd" >
+		<http:listener doc:name="Session4Flow-Listener" doc:id="622bf40b-757e-42f5-ba43-1df9703878b8" path="/test" config-ref="HTTP_Listener_config_Source"/>
+		<ee:transform doc:name="Transform Message" doc:id="c2ae2ee9-ceb6-4168-9625-34fe0f2724a6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var a = [{
+		"name": "Sujeeth",
+		"id": "25",
+		"Org": "CTS"
+	}, {
+		"name": "Anil",
+		"id": "50",
+		"Org": "TCS"
+	},
+	{
+		"name": "Deepu",
+		"id": "35",
+		"Org": "ACC"
+	}
+]
+---
+a]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+			</ee:variables>
+		</ee:transform>
+	</flow>
+</mule>
